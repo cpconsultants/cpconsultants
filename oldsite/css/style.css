@@ -1,0 +1,235 @@
+@import url("reset.css");
+
+body
+{
+	background: #111 url("../images/bg.png") repeat;
+	color: #555;
+	font-family: 'Droid Sans', Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	padding: 30px 0;
+}
+
+a { color: #7BA428; text-decoration: none; }
+a:hover { color: #222; text-decoration: none; }
+
+#container
+{
+	margin: 0 auto;
+	width: 900px;
+	background: #FFF;
+	/** border: 10px solid #FFF; **/
+	-moz-box-shadow: 0 0 10px #000; -webkit-box-shadow: 0 0 10px #000; box-shadow: 0 0 10px #000;
+}
+
+	#container #headercont
+	{
+		width: 900px;
+		height: 200px;
+	}
+
+		#container #headercont #headerlogo
+		{
+			float: left;
+			width: 210px;
+			height: 150px;
+			padding: 35px 15px 15px 15px;
+			background: #9C3;
+		}
+		
+			#container #headercont #headerlogo h1 a
+			{
+				color: #FFF;
+				font-size: 33px;
+				letter-spacing: -1px;
+				text-decoration: none;
+			}
+		
+		#container #headercont #headergallery
+		{
+			float: left;
+			width: 660px;
+			height: 200px;
+		}
+		
+			/*** Fading Gallery Styles **/
+			
+				#container #headercont #headergallery #slideshow
+				{
+					position: relative;
+					width: 660px;
+					height: 200px;
+				}
+				
+				#container #headercont #headergallery #slideshow IMG
+				{
+					position:absolute;
+					top:0;
+					left:0;
+					z-index:8;
+					opacity:0.0;
+				}
+				
+				#container #headercont #headergallery #slideshow IMG.active
+				{
+					z-index:10;
+					opacity:1.0;
+				}
+				
+				#container #headercont #headergallery #slideshow IMG.last-active
+				{
+					z-index:9;
+				}
+			
+			/** End Fading Gallery Styles **/
+
+	#container #maincont
+	{
+		width: 900px;
+		line-height: 22px;
+		background: url("../images/bg-maincont.png") repeat-y;
+	}
+	
+			#maincont p {
+	margin: 0 0 15px 0;
+	color: #333;
+	font-family: Verdana, Geneva, sans-serif;
+}
+			#maincont h1, #maincont h2, #maincont h3, #maincont h4, #maincont h5 { margin: 0 0 10px 0; font-weight: normal; letter-spacing: -1px;  }
+			#maincont h1 { font-size: 26px; }
+			#maincont h2 { font-size: 24px; }
+			#maincont h3 { font-size: 24px; }
+			#maincont h4 { font-size: 22px; }
+			#maincont h5 { font-size: 22px; }
+			#maincont ul { margin: 0 0 15px 35px; list-style-type: square; }
+			#maincont ul li { padding: 0 0 0 2px; }
+			#maincont ol { margin: 0 0 15px 35px; list-style-type: decimal; }
+			#maincont ol li { padding: 0 0 0 2px; }
+			#maincont blockquote {
+	background: #EEE;
+	border-left: 3px solid #9C3;
+	padding: 15px;
+	margin: 0 0 15px 0;
+	font-style: italic;
+	line-height: 18px;
+	color: #000;
+}
+
+		#container #maincont #menucont
+		{
+			width: 900px;
+			height: 50px;
+			background: #7BA428;
+		}
+		
+			#container #maincont #menucont ul
+			{
+				float: left;
+				margin: 0 0 0 240px;
+			}
+			
+			#container #maincont #menucont ul li
+			{
+				display: inline;
+			}
+			
+			#container #maincont #menucont ul li a
+			{
+				float: left;
+				padding: 0 20px;
+				line-height: 50px;
+				color: #FFF;
+				font-weight: normal;
+				text-decoration: none;
+				text-transform: uppercase;
+				font-size: 11px;
+				background: #7BA428;
+			}
+
+			#container #maincont #menucont ul li a:hover
+			{
+				background: #9C3;
+			}
+			
+				#container #maincont #menucont ul li a.active
+				{
+					background: #FFF;
+					color: #333;
+				}
+
+		#container #maincont #mainleft
+		{
+			float: left;
+			width: 200px;
+			padding: 40px 20px;
+			color: #5E7E1F;
+			line-height: 18px;
+		}
+		
+			#maincont #mainleft ul.sidemenu
+			{
+				float: left;
+				width: 200px;
+				margin: 0 0 15px 0;
+				list-style-type: none;
+			}
+			
+			#maincont #mainleft ul.sidemenu li
+			{
+				display: block;
+			}
+			
+			#maincont #mainleft ul.sidemenu li a
+			{
+				float: left;
+				width: 180px;
+				padding: 8px 10px;
+				margin: 0 0 2px 0;
+				background: #7BA428;
+				color: #FFF;
+				font-weight: normal;
+				text-decoration: none;
+			}
+			
+			#maincont #mainleft ul.sidemenu li a:hover
+			{
+				color: #FFF;
+				background: #60801F;
+			}
+		
+		#container #maincont #mainright
+		{
+	float: left;
+	width: 580px;
+	padding: 40px;
+	color: #FFF;
+	text-align: justify;
+		}
+		
+	#footercont
+	{
+		margin: 0 auto;
+		width: 860px;
+		padding: 20px 20px 15px 20px;
+		font-size: 11px;
+		color: #666;
+		text-align: right;
+	}
+	
+		#footercont p
+		{
+	margin: 0 0 5px 0;
+	text-align: center;
+	color: #999;
+		}
+	
+		#footercont a
+		{
+			color: #FFF;
+			text-decoration: none;
+		}
+		
+		#footercont a:hover
+		{
+			color: #FFF;
+			text-decoration: underline;
+		}
