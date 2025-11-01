@@ -1,5 +1,5 @@
-# Hugo output directory
-public/
+# Hugo output directory (uncomment to ignore)
+# public/
 
 # Temporary files
 *.tmp
