@@ -1376,6 +1376,10 @@ a:hover {
 }
 
 @media (max-width: 768px) {
+    .top-nav {
+        position: relative;
+    }
+    
     .nav-container {
         flex-direction: column;
         height: auto;

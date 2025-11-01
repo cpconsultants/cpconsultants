@@ -57,27 +57,28 @@ done
 
 echo "Updating paths in root index.html to point to site/..."
 # Update paths in index.html to point to site/ using relative paths
+# First, fix homepage links to stay as / before converting other URLs
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    # macOS - convert absolute URLs to relative paths pointing to site/
-    sed -i '' 's|href=https://cpconsultants\.in/\([^> ]*\)|href=site/\1|g' index.html
+    # macOS - first ensure homepage links stay as /
+    sed -i '' 's|href="https://cpconsultants\.in/"|href="/"|g' index.html
+    sed -i '' 's|href=https://cpconsultants\.in/">|href="/">|g' index.html
+    # Convert absolute URLs to relative paths pointing to site/ (but not root /)
+    sed -i '' 's|href=https://cpconsultants\.in/\([^> /][^> ]*\)|href=site/\1|g' index.html
     sed -i '' 's|src=https://cpconsultants\.in/\([^> ]*\)|src=site/\1|g' index.html
-    sed -i '' 's|href="https://cpconsultants\.in/\([^"]*\)"|href="site/\1"|g' index.html
+    sed -i '' 's|href="https://cpconsultants\.in/\([^"/][^"]*\)"|href="site/\1"|g' index.html
     sed -i '' 's|src="https://cpconsultants\.in/\([^"]*\)"|src="site/\1"|g' index.html
-    # Fix homepage link back to root
-    sed -i '' 's|href="site/"|href="/"|g' index.html
-    sed -i '' 's|href=site/">|href="/">|g' index.html
     # Don't modify external URLs (fonts.googleapis.com, etc.)
     sed -i '' 's|href=site/https://|href=https://|g' index.html
     sed -i '' 's|src=site/https://|src=https://|g' index.html
 else
-    # Linux - convert absolute URLs to relative paths pointing to site/
-    sed -i 's|href=https://cpconsultants\.in/\([^> ]*\)|href=site/\1|g' index.html
+    # Linux - first ensure homepage links stay as /
+    sed -i 's|href="https://cpconsultants\.in/"|href="/"|g' index.html
+    sed -i 's|href=https://cpconsultants\.in/">|href="/">|g' index.html
+    # Convert absolute URLs to relative paths pointing to site/ (but not root /)
+    sed -i 's|href=https://cpconsultants\.in/\([^> /][^> ]*\)|href=site/\1|g' index.html
     sed -i 's|src=https://cpconsultants\.in/\([^> ]*\)|src=site/\1|g' index.html
-    sed -i 's|href="https://cpconsultants\.in/\([^"]*\)"|href="site/\1"|g' index.html
+    sed -i 's|href="https://cpconsultants\.in/\([^"/][^"]*\)"|href="site/\1"|g' index.html
     sed -i 's|src="https://cpconsultants\.in/\([^"]*\)"|src="site/\1"|g' index.html
-    # Fix homepage link back to root
-    sed -i 's|href="site/"|href="/"|g' index.html
-    sed -i 's|href=site/">|href="/">|g' index.html
     # Don't modify external URLs
     sed -i 's|href=site/https://|href=https://|g' index.html
     sed -i 's|src=site/https://|src=https://|g' index.html
