@@ -12,8 +12,48 @@ mkdir -p site
 # Move everything except index.html to site/
 find public -mindepth 1 -maxdepth 1 ! -name index.html -exec mv {} site/ \;
 
-echo "Copying only index.html to root..."
+echo "Copying index.html and page directories to root..."
 cp public/index.html .
+
+# Create page directories in root and copy their index.html files
+mkdir -p about clients services enquiry contact
+cp public/about/index.html about/index.html 2>/dev/null || true
+cp public/clients/index.html clients/index.html 2>/dev/null || true
+cp public/services/index.html services/index.html 2>/dev/null || true
+cp public/enquiry/index.html enquiry/index.html 2>/dev/null || true
+cp public/contact/index.html contact/index.html 2>/dev/null || true
+
+echo "Updating paths in root pages to point to site/ for assets..."
+# Update paths in root page directories to point to ../site/ for assets
+find about clients services enquiry contact -name "index.html" -type f | while read htmlfile; do
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        sed -i '' 's|href=https://cpconsultants\.in/css/|href=../site/css/|g' "$htmlfile"
+        sed -i '' 's|src=https://cpconsultants\.in/css/|src=../site/css/|g' "$htmlfile"
+        sed -i '' 's|href=https://cpconsultants\.in/js/|href=../site/js/|g' "$htmlfile"
+        sed -i '' 's|src=https://cpconsultants\.in/js/|src=../site/js/|g' "$htmlfile"
+        sed -i '' 's|href=https://cpconsultants\.in/images/|href=../site/images/|g' "$htmlfile"
+        sed -i '' 's|src=https://cpconsultants\.in/images/|src=../site/images/|g' "$htmlfile"
+        sed -i '' 's|href="https://cpconsultants\.in/css/|href="../site/css/|g' "$htmlfile"
+        sed -i '' 's|src="https://cpconsultants\.in/css/|src="../site/css/|g' "$htmlfile"
+        sed -i '' 's|href="https://cpconsultants\.in/js/|href="../site/js/|g' "$htmlfile"
+        sed -i '' 's|src="https://cpconsultants\.in/js/|src="../site/js/|g' "$htmlfile"
+        sed -i '' 's|href="https://cpconsultants\.in/images/|href="../site/images/|g' "$htmlfile"
+        sed -i '' 's|src="https://cpconsultants\.in/images/|src="../site/images/|g' "$htmlfile"
+    else
+        sed -i 's|href=https://cpconsultants\.in/css/|href=../site/css/|g' "$htmlfile"
+        sed -i 's|src=https://cpconsultants\.in/css/|src=../site/css/|g' "$htmlfile"
+        sed -i 's|href=https://cpconsultants\.in/js/|href=../site/js/|g' "$htmlfile"
+        sed -i 's|src=https://cpconsultants\.in/js/|src=../site/js/|g' "$htmlfile"
+        sed -i 's|href=https://cpconsultants\.in/images/|href=../site/images/|g' "$htmlfile"
+        sed -i 's|src=https://cpconsultants\.in/images/|src=../site/images/|g' "$htmlfile"
+        sed -i 's|href="https://cpconsultants\.in/css/|href="../site/css/|g' "$htmlfile"
+        sed -i 's|src="https://cpconsultants\.in/css/|src="../site/css/|g' "$htmlfile"
+        sed -i 's|href="https://cpconsultants\.in/js/|href="../site/js/|g' "$htmlfile"
+        sed -i 's|src="https://cpconsultants\.in/js/|src="../site/js/|g' "$htmlfile"
+        sed -i 's|href="https://cpconsultants\.in/images/|href="../site/images/|g' "$htmlfile"
+        sed -i 's|src="https://cpconsultants\.in/images/|src="../site/images/|g' "$htmlfile"
+    fi
+done
 
 echo "Updating paths in root index.html to point to site/..."
 # Update paths in index.html to point to site/ using relative paths
