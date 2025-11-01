@@ -1,0 +1,13 @@
+# Hugo output directory
+public/
+
+# Temporary files
+*.tmp
+*.swp
+*~
+
+# OS files
+.DS_Store
+desktop.ini
+Thumbs.db
+

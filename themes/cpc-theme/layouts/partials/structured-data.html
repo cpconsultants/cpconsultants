@@ -1,0 +1,116 @@
+{{ if .IsHome }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "{{ .Site.Params.contact.name }}",
+  "image": "{{ .Site.BaseURL }}/images/cpc-logo.png",
+  "description": "{{ .Site.Params.description }}",
+  "url": "{{ .Site.BaseURL }}",
+  "telephone": "{{ .Site.Params.contact.phone }}",
+  "email": "{{ .Site.Params.contact.email }}",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "{{ .Site.Params.contact.address.street }}",
+    "addressLocality": "{{ .Site.Params.contact.address.city }}",
+    "postalCode": "{{ .Site.Params.contact.address.postalCode }}",
+    "addressRegion": "{{ .Site.Params.contact.address.state }}",
+    "addressCountry": "{{ .Site.Params.contact.address.country }}"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "13.0112",
+    "longitude": "80.1756"
+  },
+  "foundingDate": "{{ .Site.Params.foundingDate }}",
+  "serviceArea": {
+    "@type": "GeoCircle",
+    "geoMidpoint": {
+      "@type": "GeoCoordinates",
+      "latitude": "13.0112",
+      "longitude": "80.1756"
+    }
+  },
+  "areaServed": "Worldwide",
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Pharmaceutical Consulting Services",
+    "itemListElement": [
+      {{ range $index, $service := .Site.Params.services }}{{ if $index }},{{ end }}
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "{{ $service }}"
+        }
+      }{{ end }}
+    ]
+  },
+  "sameAs": [
+    {{ if .Site.Params.social.flickr }}"{{ .Site.Params.social.flickr }}"{{ end }}
+  ]
+}
+</script>
+{{ end }}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "{{ .Site.BaseURL }}"
+    }{{ if not .IsHome }},
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "{{ .Title }}",
+      "item": "{{ .Permalink }}"
+    }{{ end }}
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "{{ .Site.Params.contact.name }}",
+  "url": "{{ .Site.BaseURL }}",
+  "logo": "{{ .Site.BaseURL }}/images/cpc-logo.png",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "{{ .Site.Params.contact.phone }}",
+    "contactType": "Customer Service",
+    "email": "{{ .Site.Params.contact.email }}",
+    "areaServed": "Worldwide",
+    "availableLanguage": "English"
+  }
+}
+</script>
+
+{{ if eq .Type "page" }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "{{ .Title }}",
+  "description": "{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}",
+  "url": "{{ .Permalink }}",
+  "inLanguage": "{{ .Site.LanguageCode }}",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "{{ .Site.Title }}",
+    "url": "{{ .Site.BaseURL }}"
+  },
+  "about": {
+    "@type": "Thing",
+    "name": "{{ .Site.Params.businessType }}"
+  }
+}
+</script>
+{{ end }}
+

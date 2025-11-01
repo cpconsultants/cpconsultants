@@ -1,0 +1,81 @@
+baseURL: 'https://cpconsultants.in/'
+languageCode: 'en-us'
+title: 'Chennai Pharma Consultants'
+theme: 'cpc-theme'
+canonifyURLs: true
+enableRobotsTXT: true
+enableGitInfo: false
+
+# SEO Configuration
+params:
+  description: 'Chennai Pharma Consultants - Leading pharmaceutical consulting firm offering GMP compliance, project management, validation services, and turnkey solutions for pharmaceutical industries worldwide since 2003.'
+  keywords: 'pharmaceutical consultant, pharma consulting, GMP consultant, pharmaceutical project management, validation services, Chennai pharma consultant, pharmaceutical turnkey solutions, GMP compliance, pharmaceutical regulatory services, pharma project planning, pharmaceutical plant design, URS FDS IQ OQ PQ, pharmaceutical facility design'
+  author: 'Chennai Pharma Consultants'
+  siteTitle: 'Chennai Pharma Consultants'
+  
+  # Contact Information for Schema
+  contact:
+    name: 'Chennai Pharma Consultants'
+    email: 'chennaipharmaconsultant@gmail.com'
+    phone: '+91-44-48587286'
+    address:
+      street: '6M Vijay by Square, 3/196 Manapakkam Main Road'
+      city: 'Manapakkam, Chennai'
+      postalCode: '600 125'
+      state: 'Tamil Nadu'
+      country: 'India'
+  
+  # Social Media
+  social:
+    flickr: 'https://www.flickr.com/photos/cpconsultants'
+  
+  # Google Verification
+  googleVerification: 'google0505b68c3c85bb64.html,google4910a11382e0b84b.html,google895511d3b1e247e3.html'
+  
+  # Business Type
+  businessType: 'Pharmaceutical Consulting Firm'
+  foundingDate: '2003'
+  
+  # Services for Schema
+  services:
+    - 'GMP Consulting'
+    - 'Project Management'
+    - 'Pharmaceutical Plant Design'
+    - 'Validation Services'
+    - 'Regulatory Compliance'
+    - 'Equipment Qualification'
+  
+menu:
+  main:
+    - name: Home
+      url: /
+      weight: 1
+    - name: About Us
+      url: /about/
+      weight: 2
+    - name: Services
+      url: /services/
+      weight: 3
+    - name: Clients
+      url: /clients/
+      weight: 4
+    - name: Enquiry
+      url: /enquiry/
+      weight: 5
+    - name: Gallery
+      url: 'https://www.flickr.com/photos/cpconsultants'
+      weight: 6
+    - name: Contact Us
+      url: /contact/
+      weight: 7
+
+taxonomies:
+  category: categories
+  tag: tags
+
+# Sitemap Configuration
+sitemap:
+  changefreq: monthly
+  priority: 0.5
+  filename: sitemap.xml
+

@@ -1,0 +1,75 @@
+<div class="enquiry-form">
+    <form id="enquiry-form" method="POST">
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="full_name">Full Name *</label>
+                <input type="text" id="full_name" name="Full Name" required placeholder="Enter your full name" />
+            </div>
+
+            <div class="form-group">
+                <label for="company">Company/Organization *</label>
+                <input type="text" id="company" name="Company" required placeholder="Enter your company name" />
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address *</label>
+                <input type="email" id="email" name="Email" required placeholder="your.email@company.com" />
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number *</label>
+                <input type="tel" id="phone" name="Phone" required placeholder="+91-XXXXXXXXXX" />
+            </div>
+
+            <div class="form-group form-group-full">
+                <label for="country">Country *</label>
+                <input type="text" id="country" name="Country" required placeholder="Enter your country" />
+            </div>
+
+            <div class="form-group form-group-full">
+                <label for="service_interest">Service Interest *</label>
+                <select id="service_interest" name="Service Interest" required>
+                    <option value="">Please select a service</option>
+                    <option value="GMP Consulting">GMP Consulting</option>
+                    <option value="Pharmaceutical Plant Design">Pharmaceutical Plant Design</option>
+                    <option value="Project Management">Project Management</option>
+                    <option value="Validation Services (URS, FDS, IQ, OQ, PQ)">Validation Services (URS, FDS, IQ, OQ, PQ)</option>
+                    <option value="Regulatory Compliance">Regulatory Compliance</option>
+                    <option value="Equipment Qualification">Equipment Qualification</option>
+                    <option value="Process Engineering">Process Engineering</option>
+                    <option value="Product Development">Product Development</option>
+                    <option value="Quality/GMP Audit">Quality/GMP Audit</option>
+                    <option value="Training Services">Training Services</option>
+                    <option value="Turnkey Solutions">Turnkey Solutions</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group form-group-full">
+                <label for="project_description">Project Description *</label>
+                <textarea id="project_description" name="Project Description" rows="6" required placeholder="Please provide details about your project, requirements, timeline, and any specific challenges you're facing."></textarea>
+            </div>
+
+            <div class="form-group form-group-full">
+                <label for="timeline">Expected Project Timeline</label>
+                <input type="text" id="timeline" name="Timeline" placeholder="e.g., Q1 2025, Immediate, 6 months" />
+            </div>
+
+            <div class="form-group form-group-full">
+                <label for="additional_info">Additional Information</label>
+                <textarea id="additional_info" name="Additional Information" rows="4" placeholder="Any additional information you'd like to share that will help us understand your needs better."></textarea>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="formbutton" id="submit-btn">
+                <span class="btn-text">Submit Enquiry</span>
+                <span class="btn-loading" style="display: none;">
+                    <i class="fas fa-spinner fa-spin"></i> Submitting...
+                </span>
+            </button>
+            <p class="form-note">* Required fields. Your information will be kept confidential.</p>
+            <div id="form-message" style="display: none; margin-top: 1rem; padding: 1rem; border-radius: 8px;"></div>
+        </div>
+    </form>
+</div>
