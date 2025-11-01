@@ -59,9 +59,11 @@ echo "Updating paths in root index.html to point to site/..."
 # Update paths in index.html to point to site/ using relative paths
 # First, fix homepage links to stay as / before converting other URLs
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    # macOS - first ensure homepage links stay as /
+    # macOS - first ensure homepage links stay as / (handle both quoted and unquoted)
     sed -i '' 's|href="https://cpconsultants\.in/"|href="/"|g' index.html
     sed -i '' 's|href=https://cpconsultants\.in/">|href="/">|g' index.html
+    sed -i '' 's|href=https://cpconsultants\.in/ title|href=/ title|g' index.html
+    sed -i '' 's|href="https://cpconsultants\.in/" title|href="/" title|g' index.html
     # Convert absolute URLs to relative paths pointing to site/ (but not root /)
     sed -i '' 's|href=https://cpconsultants\.in/\([^> /][^> ]*\)|href=site/\1|g' index.html
     sed -i '' 's|src=https://cpconsultants\.in/\([^> ]*\)|src=site/\1|g' index.html
@@ -74,6 +76,8 @@ else
     # Linux - first ensure homepage links stay as /
     sed -i 's|href="https://cpconsultants\.in/"|href="/"|g' index.html
     sed -i 's|href=https://cpconsultants\.in/">|href="/">|g' index.html
+    sed -i 's|href=https://cpconsultants\.in/ title|href=/ title|g' index.html
+    sed -i 's|href="https://cpconsultants\.in/" title|href="/" title|g' index.html
     # Convert absolute URLs to relative paths pointing to site/ (but not root /)
     sed -i 's|href=https://cpconsultants\.in/\([^> /][^> ]*\)|href=site/\1|g' index.html
     sed -i 's|src=https://cpconsultants\.in/\([^> ]*\)|src=site/\1|g' index.html
@@ -96,41 +100,49 @@ find site -name "*.html" -type f | while read htmlfile; do
         relprefix=""
     fi
     
-    if [[ "$OSTYPE" == "darwin"* ]]; then
-        # macOS - update paths in subdirectory HTML files
-        # For CSS, JS, images - use relative path
-        sed -i '' "s|href=https://cpconsultants\.in/css/|href=${relprefix}css/|g" "$htmlfile"
-        sed -i '' "s|src=https://cpconsultants\.in/css/|src=${relprefix}css/|g" "$htmlfile"
-        sed -i '' "s|href=https://cpconsultants\.in/js/|href=${relprefix}js/|g" "$htmlfile"
-        sed -i '' "s|src=https://cpconsultants\.in/js/|src=${relprefix}js/|g" "$htmlfile"
-        sed -i '' "s|href=https://cpconsultants\.in/images/|href=${relprefix}images/|g" "$htmlfile"
-        sed -i '' "s|src=https://cpconsultants\.in/images/|src=${relprefix}images/|g" "$htmlfile"
-        sed -i '' "s|href=\"https://cpconsultants\.in/css/|href=\"${relprefix}css/|g" "$htmlfile"
-        sed -i '' "s|src=\"https://cpconsultants\.in/css/|src=\"${relprefix}css/|g" "$htmlfile"
-        sed -i '' "s|href=\"https://cpconsultants\.in/js/|href=\"${relprefix}js/|g" "$htmlfile"
-        sed -i '' "s|src=\"https://cpconsultants\.in/js/|src=\"${relprefix}js/|g" "$htmlfile"
-        sed -i '' "s|href=\"https://cpconsultants\.in/images/|href=\"${relprefix}images/|g" "$htmlfile"
-        sed -i '' "s|src=\"https://cpconsultants\.in/images/|src=\"${relprefix}images/|g" "$htmlfile"
-        # For page links - keep pointing to site/ directory
-        sed -i '' 's|href=https://cpconsultants\.in/\([^> ]*\)|href=/site/\1|g' "$htmlfile"
-        sed -i '' 's|href="https://cpconsultants\.in/\([^"]*\)"|href="/site/\1"|g' "$htmlfile"
-    else
-        # Linux - same updates
-        sed -i "s|href=https://cpconsultants\.in/css/|href=${relprefix}css/|g" "$htmlfile"
-        sed -i "s|src=https://cpconsultants\.in/css/|src=${relprefix}css/|g" "$htmlfile"
-        sed -i "s|href=https://cpconsultants\.in/js/|href=${relprefix}js/|g" "$htmlfile"
-        sed -i "s|src=https://cpconsultants\.in/js/|src=${relprefix}js/|g" "$htmlfile"
-        sed -i "s|href=https://cpconsultants\.in/images/|href=${relprefix}images/|g" "$htmlfile"
-        sed -i "s|src=https://cpconsultants\.in/images/|src=${relprefix}images/|g" "$htmlfile"
-        sed -i "s|href=\"https://cpconsultants\.in/css/|href=\"${relprefix}css/|g" "$htmlfile"
-        sed -i "s|src=\"https://cpconsultants\.in/css/|src=\"${relprefix}css/|g" "$htmlfile"
-        sed -i "s|href=\"https://cpconsultants\.in/js/|href=\"${relprefix}js/|g" "$htmlfile"
-        sed -i "s|src=\"https://cpconsultants\.in/js/|src=\"${relprefix}js/|g" "$htmlfile"
-        sed -i "s|href=\"https://cpconsultants\.in/images/|href=\"${relprefix}images/|g" "$htmlfile"
-        sed -i "s|src=\"https://cpconsultants\.in/images/|src=\"${relprefix}images/|g" "$htmlfile"
-        sed -i 's|href=https://cpconsultants\.in/\([^> ]*\)|href=/site/\1|g' "$htmlfile"
-        sed -i 's|href="https://cpconsultants\.in/\([^"]*\)"|href="/site/\1"|g' "$htmlfile"
-    fi
+        if [[ "$OSTYPE" == "darwin"* ]]; then
+            # macOS - update paths in subdirectory HTML files
+            # First fix Home links to point to root /
+            sed -i '' 's|href=https://cpconsultants\.in/ title|href=/ title|g' "$htmlfile"
+            sed -i '' 's|href="https://cpconsultants\.in/" title|href="/" title|g' "$htmlfile"
+            # For CSS, JS, images - use relative path
+            sed -i '' "s|href=https://cpconsultants\.in/css/|href=${relprefix}css/|g" "$htmlfile"
+            sed -i '' "s|src=https://cpconsultants\.in/css/|src=${relprefix}css/|g" "$htmlfile"
+            sed -i '' "s|href=https://cpconsultants\.in/js/|href=${relprefix}js/|g" "$htmlfile"
+            sed -i '' "s|src=https://cpconsultants\.in/js/|src=${relprefix}js/|g" "$htmlfile"
+            sed -i '' "s|href=https://cpconsultants\.in/images/|href=${relprefix}images/|g" "$htmlfile"
+            sed -i '' "s|src=https://cpconsultants\.in/images/|src=${relprefix}images/|g" "$htmlfile"
+            sed -i '' "s|href=\"https://cpconsultants\.in/css/|href=\"${relprefix}css/|g" "$htmlfile"
+            sed -i '' "s|src=\"https://cpconsultants\.in/css/|src=\"${relprefix}css/|g" "$htmlfile"
+            sed -i '' "s|href=\"https://cpconsultants\.in/js/|href=\"${relprefix}js/|g" "$htmlfile"
+            sed -i '' "s|src=\"https://cpconsultants\.in/js/|src=\"${relprefix}js/|g" "$htmlfile"
+            sed -i '' "s|href=\"https://cpconsultants\.in/images/|href=\"${relprefix}images/|g" "$htmlfile"
+            sed -i '' "s|src=\"https://cpconsultants\.in/images/|src=\"${relprefix}images/|g" "$htmlfile"
+            # For page links - keep pointing to site/ directory (but not root /)
+            sed -i '' 's|href=https://cpconsultants\.in/\([^> /][^> ]*\)|href=/site/\1|g' "$htmlfile"
+            sed -i '' 's|href="https://cpconsultants\.in/\([^"/][^"]*\)"|href="/site/\1"|g' "$htmlfile"
+        else
+            # Linux - same updates
+            # First fix Home links to point to root /
+            sed -i 's|href=https://cpconsultants\.in/ title|href=/ title|g' "$htmlfile"
+            sed -i 's|href="https://cpconsultants\.in/" title|href="/" title|g' "$htmlfile"
+            # For CSS, JS, images - use relative path
+            sed -i "s|href=https://cpconsultants\.in/css/|href=${relprefix}css/|g" "$htmlfile"
+            sed -i "s|src=https://cpconsultants\.in/css/|src=${relprefix}css/|g" "$htmlfile"
+            sed -i "s|href=https://cpconsultants\.in/js/|href=${relprefix}js/|g" "$htmlfile"
+            sed -i "s|src=https://cpconsultants\.in/js/|src=${relprefix}js/|g" "$htmlfile"
+            sed -i "s|href=https://cpconsultants\.in/images/|href=${relprefix}images/|g" "$htmlfile"
+            sed -i "s|src=https://cpconsultants\.in/images/|src=${relprefix}images/|g" "$htmlfile"
+            sed -i "s|href=\"https://cpconsultants\.in/css/|href=\"${relprefix}css/|g" "$htmlfile"
+            sed -i "s|src=\"https://cpconsultants\.in/css/|src=\"${relprefix}css/|g" "$htmlfile"
+            sed -i "s|href=\"https://cpconsultants\.in/js/|href=\"${relprefix}js/|g" "$htmlfile"
+            sed -i "s|src=\"https://cpconsultants\.in/js/|src=\"${relprefix}js/|g" "$htmlfile"
+            sed -i "s|href=\"https://cpconsultants\.in/images/|href=\"${relprefix}images/|g" "$htmlfile"
+            sed -i "s|src=\"https://cpconsultants\.in/images/|src=\"${relprefix}images/|g" "$htmlfile"
+            # For page links - keep pointing to site/ directory (but not root /)
+            sed -i 's|href=https://cpconsultants\.in/\([^> /][^> ]*\)|href=/site/\1|g' "$htmlfile"
+            sed -i 's|href="https://cpconsultants\.in/\([^"/][^"]*\)"|href="/site/\1"|g' "$htmlfile"
+        fi
 done
 
 echo "Deployment ready! Only index.html is in root, rest in site/ directory."
