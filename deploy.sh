@@ -16,17 +16,30 @@ echo "Copying only index.html to root..."
 cp public/index.html .
 
 echo "Updating paths in root index.html to point to site/..."
-# Update relative paths in index.html to point to site/
+# Update paths in index.html to point to site/
+# Handle both absolute URLs (https://cpconsultants.in/) and relative paths (/)
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    # macOS
+    # macOS - update absolute URLs
+    sed -i '' 's|href="https://cpconsultants.in/|href="https://cpconsultants.in/site/|g' index.html
+    sed -i '' 's|src="https://cpconsultants.in/|src="https://cpconsultants.in/site/|g' index.html
+    sed -i '' 's|action="https://cpconsultants.in/|action="https://cpconsultants.in/site/|g' index.html
+    # Update relative paths (but not absolute external URLs)
     sed -i '' 's|href="/|href="/site/|g' index.html
     sed -i '' 's|src="/|src="/site/|g' index.html
     sed -i '' 's|action="/|action="/site/|g' index.html
+    # Fix homepage link back to root
+    sed -i '' 's|href="/site/"|href="/"|g' index.html
 else
-    # Linux
+    # Linux - update absolute URLs
+    sed -i 's|href="https://cpconsultants.in/|href="https://cpconsultants.in/site/|g' index.html
+    sed -i 's|src="https://cpconsultants.in/|src="https://cpconsultants.in/site/|g' index.html
+    sed -i 's|action="https://cpconsultants.in/|action="https://cpconsultants.in/site/|g' index.html
+    # Update relative paths
     sed -i 's|href="/|href="/site/|g' index.html
     sed -i 's|src="/|src="/site/|g' index.html
     sed -i 's|action="/|action="/site/|g' index.html
+    # Fix homepage link back to root
+    sed -i 's|href="/site/"|href="/"|g' index.html
 fi
 
 echo "Deployment ready! Only index.html is in root, rest in site/ directory."
