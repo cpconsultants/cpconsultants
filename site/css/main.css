@@ -1377,7 +1377,8 @@ a:hover {
 
 @media (max-width: 768px) {
     .top-nav {
-        position: relative;
+        position: relative !important;
+        top: auto !important;
     }
     
     .nav-container {
@@ -1596,6 +1597,11 @@ a:hover {
 }
 
 @media (max-width: 480px) {
+    .top-nav {
+        position: relative !important;
+        top: auto !important;
+    }
+    
     .nav-container {
         padding: 0.75rem;
     }
