@@ -2,7 +2,6 @@ baseURL: 'https://cpconsultants.in/'
 languageCode: 'en-us'
 title: 'Chennai Pharma Consultants'
 theme: 'cpc-theme'
-publishDir: 'docs'
 canonifyURLs: true
 enableRobotsTXT: true
 enableGitInfo: false
